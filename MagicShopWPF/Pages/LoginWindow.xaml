@@ -1,0 +1,35 @@
+﻿<Window x:Class="MagicShopWPF.Pages.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MagicShopWPF.Pages"
+        mc:Ignorable="d"
+           Background="{StaticResource BackgroundColor}"
+    WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize"
+    Title="Авторизация - Магическая лавка" Height="650" Width="400">
+    <StackPanel Orientation="Vertical">
+        <Label Name="label_topText" Margin="0 20 0 0" HorizontalAlignment="Center" FontSize="25" FontWeight="Normal" Content="Магическая лавка"></Label>
+        <Image Name="image_logoImage" Source="./../Images/logo.png" Width="250"></Image>
+        <StackPanel Orientation="Vertical" Margin="10 0" Height="318">
+            <StackPanel Orientation="Vertical" Margin="0,0,0,83">
+                <Label Name="label_login" Content="Логин"></Label>
+                <TextBox Name="textbox_loginInput"/>
+
+                <Label Name="label_password" Content="Пароль"></Label>
+                <PasswordBox Name="textbox_passwordInput"/>
+
+                <StackPanel Margin="0 10 0 25" x:Name="captchaContainer" Visibility="Hidden">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="" x:Name="captchaFirstBlock" TextDecorations="Strikethrough" Margin="0 5 10 0" />
+                        <TextBlock Text="" x:Name="captchaSecondBlock" TextDecorations="Strikethrough" />
+                    </StackPanel>
+                    <TextBlock Text="Введите текст с картинки:" />
+                    <TextBox Name="textbox_captchaInput"/>
+                </StackPanel>
+                <Button Content="Войти" x:Name="button_Login" Click="button_Login_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Window>

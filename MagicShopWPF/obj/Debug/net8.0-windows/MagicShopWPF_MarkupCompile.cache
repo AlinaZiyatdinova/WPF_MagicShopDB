@@ -1,0 +1,20 @@
+﻿MagicShopWPF
+
+
+winexe
+C#
+.cs
+F:\1 semestr\Praktika_csharp\prakt6\WPF6\MagicShopWPF\obj\Debug\net8.0-windows\
+MagicShopWPF
+none
+false
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP
+F:\1 semestr\Praktika_csharp\prakt6\WPF6\MagicShopWPF\App.xaml
+3-2073611034
+11562050264
+171659220871
+2261427161535
+Pages\LoginWindow.xaml;Pages\ProductWindow.xaml;Pages\SaleProductWindow.xaml;
+
+False
+

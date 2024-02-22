@@ -1,0 +1,136 @@
+﻿<Window x:Class="MagicShopWPF.Pages.ProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MagicShopWPF.Pages"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="{StaticResource BackgroundColor}"
+        Title="Главное окно" Height="600" Width="1500" Closed="Window_Closed">
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Source="./../Images/logo.png" Grid.Column="1" Height="70"></Image>
+            <Image Source="./../Images/login_mage.png" Grid.Column="2" Height="50" HorizontalAlignment="Right"
+                   Margin="0 0 10 0" Name="login_imageMage" MouseDown="login_imageMage_MouseDown"></Image>
+        </Grid>
+        <Grid Height="40" Name="grid_Main">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Name="panel_sorting" Visibility="Hidden" >
+                <Label Name="label_sorting" Content="Сортировать по:" VerticalAlignment="Center"></Label>
+                <ComboBox Name="combobox_sorting" Width="200" Margin="0 5 0 5" SelectionChanged="combobox_sorting_SelectionChanged" >
+                    <ComboBoxItem Content="По возрастанию цены" />
+                    <ComboBoxItem Content="По убыванию цены" />
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Name="panel_filtration" Grid.Column="1" Visibility="Hidden"  >
+                <Label Name="label_filtrtion" Content="Категория:" VerticalAlignment="Center"></Label>
+                <ComboBox Name="combobox_filtration" Background="{StaticResource AccentColor}" SelectionChanged="combobox_filtration_SelectionChanged"
+                          Width="200" Margin="0 5 0 5" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Name="panel_search" Grid.ColumnSpan="2">
+                <Label Name="label_search" Content="Поиск по названию:" VerticalAlignment="Center"></Label>
+                <TextBox Name="textbox_search" TextChanged="textbox_search_TextChanged" Width="200" Margin="0 5 0 5"></TextBox>
+            </StackPanel>
+
+
+        </Grid>
+
+        <Grid Height="40" Name="grid_Button" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="53*"></ColumnDefinition>
+                <ColumnDefinition Width="145*"/>
+                <ColumnDefinition Width="198*"></ColumnDefinition>
+                <ColumnDefinition Width="198*"></ColumnDefinition>
+                <ColumnDefinition Width="198*"></ColumnDefinition>
+                <ColumnDefinition Width="198*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="4" Margin="5 0 0 10" Content="Продать" Name="button_sell" IsEnabled="False" Click="button_sell_Click" ></Button>
+            <Button Grid.Column="2" Margin="5 0 0 10" Content="Добавить" Name="button_addProduct" Visibility="Hidden"></Button>
+            <Button Grid.Column="3" Margin="5 0 0 10" Content="Удалить" Name="button_changeProduct" Visibility="Hidden"></Button>
+            <Button Grid.Column="5" Margin="5 0 5 10" Content="Выйти" Name="button_exit" Click="button_exit_Click"></Button>
+        </Grid>
+
+        <ListView x:Name="productsListView" SelectionMode="Single" SelectionChanged="productsListView_SelectionChanged" Height="426" ScrollViewer.CanContentScroll="False">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="{Binding MagicPower, Converter={StaticResource magicpowerbrushconverter}}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+
+                        <!--Фото-->
+                        <GridViewColumn Width="200" Header="Фотография">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ImagePath, Converter={StaticResource imageconverter}}"
+                                Width="180" Height="170" 
+                               VerticalAlignment="Center"
+                               Margin="0,3,0,3"
+                               Stretch="UniformToFill" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <!--Общая информация-->
+                        <GridViewColumn Width="800" Header="Общая информация">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Label Content="{Binding NameProduct}"
+                                               HorizontalAlignment="Center" Foreground="Black" FontSize="15" FontWeight="Light"/>
+
+                                        <Label Content="{Binding Category.Name}"
+                                        HorizontalAlignment="Center" Foreground="Black" FontSize="15" Margin="-10" FontWeight="Light" FontStyle="Italic"/>
+
+                                        <TextBlock x:Name="textblock_description" Text="{Binding Description, Converter={StaticResource descroptionconverter}}" TextWrapping="Wrap" Foreground="Black" />
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="В наличии: " TextWrapping="Wrap" Foreground="Black"/>
+                                            <TextBlock Text="{Binding Amount}" TextWrapping="Wrap" Foreground="Black"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Магическая мощь: " TextWrapping="Wrap" Foreground="Black"/>
+                                            <TextBlock Text="{Binding MagicPower, Converter={StaticResource magicpowerconverter}}" TextWrapping="Wrap" Foreground="Black"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Цена: " TextWrapping="Wrap" Foreground="Black"/>
+                                            <TextBlock Text="{Binding Cost}" TextWrapping="Wrap" Foreground="Black"/>
+                                            <TextBlock Text=" золотых монет" TextWrapping="Wrap" Foreground="Black"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
+</Window>

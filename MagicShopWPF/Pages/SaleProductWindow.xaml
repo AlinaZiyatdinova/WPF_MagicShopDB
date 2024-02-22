@@ -1,0 +1,66 @@
+﻿<Window x:Class="MagicShopWPF.Pages.SaleProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MagicShopWPF.Pages"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="{StaticResource BackgroundColor}"
+        Title="Продажа товаров" Height="600" Width="450" Closed="Window_Closed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical">
+            <Label Content="Продажа товара" FontSize="20" HorizontalContentAlignment="Center"></Label>
+
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding ImagePath, Converter={StaticResource imageconverter}}" Width="70" Height="70"
+       HorizontalAlignment="Left"  Margin="20,0,0,0"  />
+                <StackPanel Orientation="Vertical" Width="355">
+                    <Label Content="{Binding NameProduct}"
+                         HorizontalAlignment="Center" Foreground="Black" FontSize="15" HorizontalContentAlignment="Center" FontWeight="Light"/>
+
+                    <Label Content="{Binding Category.Name}" HorizontalAlignment="Center" Foreground="Black" FontSize="15" FontWeight="Light" FontStyle="Italic"/>
+                </StackPanel>
+            </StackPanel>
+
+            <TextBlock x:Name="textblock_description" Text="{Binding Description, Converter={StaticResource descroptionconverter}}" TextWrapping="Wrap" Foreground="Black" />
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="В наличии: " TextWrapping="Wrap" Foreground="Black"/>
+                <TextBlock Text="{Binding Amount}" TextWrapping="Wrap" Foreground="Black"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Магическая мощь: " TextWrapping="Wrap" Foreground="Black"/>
+                <TextBlock Text="{Binding MagicPower, Converter={StaticResource magicpowerconverter}}" TextWrapping="Wrap" Foreground="Black"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Цена: " TextWrapping="Wrap" Foreground="Black"/>
+                <TextBlock Text="{Binding Cost}" TextWrapping="Wrap" Foreground="Black"/>
+                <TextBlock Text=" золотых монет" TextWrapping="Wrap" Foreground="Black"/>
+            </StackPanel>
+
+        </StackPanel>
+        <StackPanel Margin="10 0 10 0" Orientation="Vertical" Grid.Row="1">
+            <Label Content="Введите количество:"></Label>
+            <TextBox Name="textbox_amount"></TextBox>
+            <Label Content="Выберите клиента:"></Label>
+            <ComboBox Name="combobox_clientInfo">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Lastname}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Margin="0,10,0,0" Name="button_sellProduct" Content="Отправить через портал" Click="button_sellProduct_Click"></Button>
+            <Button Margin="0,10,0,0" Name="button_backPage" Content="Назад" Click="button_backPage_Click"></Button>
+        </StackPanel>
+
+    </Grid>
+</Window>
